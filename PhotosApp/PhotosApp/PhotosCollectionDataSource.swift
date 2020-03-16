@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Photos
 
 class PhotosCollectionDataSource: NSObject, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        let allPhotos: PHFetchResult<PHAsset>? = PHAsset.fetchAssets(with: nil)
+        return allPhotos!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
