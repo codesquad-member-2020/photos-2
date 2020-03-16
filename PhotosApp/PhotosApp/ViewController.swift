@@ -24,11 +24,7 @@ class ViewController: UIViewController, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
 
-        let red: CGFloat = indexPath.item % 2 == 0 ? 0 : 0.8
-        let green: CGFloat = indexPath.item % 3 == 0 ? 0 : 0.8
-        let blue: CGFloat = indexPath.item % 5 == 0 ? 0 : 0.8
-
-        cell.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
+        cell.backgroundColor = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1)
 
         return cell
     }
