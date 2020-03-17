@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import Photos
 
-class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
+class ViewController: UIViewController {
 
     // MARK: Properties
 
@@ -17,6 +16,7 @@ class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
 
     let dataSource = PhotosCollectionDataSource()
     let delegate = PhotosCollectionDelegate()
+    private var photoLibraryManager: PhotoLibraryManager?
 
     // MARK: Methods
 
@@ -25,16 +25,10 @@ class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
 
         self.collectionView.dataSource = self.dataSource
         self.collectionView.delegate = self.delegate
-
-        PHPhotoLibrary.shared().register(self)
+        self.photoLibraryManager = PhotoLibraryManager()
     }
 
     // MARK: PHPhotoLibraryChangeObserver
 
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-    }
 }
 
