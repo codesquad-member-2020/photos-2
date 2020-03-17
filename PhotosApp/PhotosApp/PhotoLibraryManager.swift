@@ -19,7 +19,6 @@ class PhotoLibraryManager: NSObject, PHPhotoLibraryChangeObserver {
         PHPhotoLibrary.shared().register(self)
     }
 
-    
     func requestImage(cell: UICollectionViewCell, indexPath: IndexPath) {
         imageManager.requestImage(for: (allPhotos?[indexPath.row])!, targetSize: imageSize, contentMode: PHImageContentMode.aspectFill, options: nil) { (image, info) -> Void in
             if (image != nil) {
@@ -30,10 +29,8 @@ class PhotoLibraryManager: NSObject, PHPhotoLibraryChangeObserver {
     
     
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        //        DispatchQueue.main.async {
-        //            self.collectionView.reloadData()
-        //        }
-        //
-        let changed = changeInstance.changeDetails(for: allPhotos!)
+        guard let changed = changeInstance.changeDetails(for: allPhotos!) else { return }
+        allPhotos = changed.fetchResultAfterChanges
+        NotificationCenter.default.post(name: .assetCollectionChanged, object: nil)
     }
 }
