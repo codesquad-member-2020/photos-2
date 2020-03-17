@@ -25,7 +25,6 @@ class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
 
         self.collectionView.dataSource = self.dataSource
         self.collectionView.delegate = self.delegate
-        self.collectionView.reloadData()
 
         PHPhotoLibrary.shared().register(self)
     }
@@ -33,10 +32,8 @@ class ViewController: UIViewController, PHPhotoLibraryChangeObserver {
     // MARK: PHPhotoLibraryChangeObserver
 
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        print("Photo library did change")
         DispatchQueue.main.async {
             self.collectionView.reloadData()
-            print("Reload Data")
         }
     }
 }
