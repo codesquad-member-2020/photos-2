@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import Photos
 
 class PhotosCollectionDataSource: NSObject, UICollectionViewDataSource {
     private let cellIdentifier = "collectionViewCell"
     private let photoLibraryManager = PhotoLibraryManager()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PHAsset.fetchAssets(with: nil).count
+        return photoLibraryManager.allPhotos!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
