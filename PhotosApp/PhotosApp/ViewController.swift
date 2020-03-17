@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
     let dataSource = PhotosCollectionDataSource()
-    let delegate = PhotosCollectionDelegate()
     private var photoLibraryManager: PhotoLibraryManager?
 
     // MARK: Methods
@@ -24,7 +23,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         self.collectionView.dataSource = self.dataSource
-        self.collectionView.delegate = self.delegate
         self.photoLibraryManager = PhotoLibraryManager()
     }
 
