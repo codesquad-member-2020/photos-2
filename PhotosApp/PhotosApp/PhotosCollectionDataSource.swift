@@ -10,13 +10,14 @@ import UIKit
 import Photos
 
 class PhotosCollectionDataSource: NSObject, UICollectionViewDataSource {
+    private let cellIdentifier = "collectionViewCell"
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return PHAsset.fetchAssets(with: nil).count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
+        let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
         
         return cell
     }

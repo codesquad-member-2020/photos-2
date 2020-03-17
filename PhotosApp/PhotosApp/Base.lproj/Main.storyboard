@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="j5F-pu-onv">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yk2-94-TUK">
                                     <size key="itemSize" width="100" height="100"/>
@@ -41,7 +41,7 @@
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <connections>
-                                            <outlet property="image" destination="Hhh-kZ-Ph5" id="4K5-BN-IBa"/>
+                                            <outlet property="imageView" destination="Hhh-kZ-Ph5" id="HYK-8t-PQP"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
