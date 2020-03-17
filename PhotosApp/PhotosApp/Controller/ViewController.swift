@@ -37,7 +37,6 @@ class ViewController: UIViewController {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
-        
     }
     
     deinit {
@@ -46,6 +45,3 @@ class ViewController: UIViewController {
     
 }
 
-extension Notification.Name {
-    static let assetCollectionChanged = Notification.Name("assetCollectionChanged")
-}
