@@ -11,19 +11,29 @@ import Photos
 
 class PhotoLibraryManager: NSObject, PHPhotoLibraryChangeObserver {
     var allPhotos: PHFetchResult<PHAsset>? = PHAsset.fetchAssets(with: nil)
-
+    let imageManager = PHCachingImageManager()
+    let imageSize = CGSize(width: 100, height: 100)
+    
     override init() {
         super.init()
-
         PHPhotoLibrary.shared().register(self)
     }
 
+    
+    func requestImage(cell: UICollectionViewCell, indexPath: IndexPath) {
+        imageManager.requestImage(for: (allPhotos?[indexPath.row])!, targetSize: imageSize, contentMode: PHImageContentMode.aspectFill, options: nil) { (image, info) -> Void in
+            if (image != nil) {
+                (cell as! CollectionViewCell).imageView.image = image
+            }
+        }
+    }
+    
+    
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-//        DispatchQueue.main.async {
-//            self.collectionView.reloadData()
-//        }
-//
+        //        DispatchQueue.main.async {
+        //            self.collectionView.reloadData()
+        //        }
+        //
         let changed = changeInstance.changeDetails(for: allPhotos!)
-
     }
 }
