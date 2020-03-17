@@ -19,10 +19,10 @@ class PhotoLibraryManager: NSObject, PHPhotoLibraryChangeObserver {
         PHPhotoLibrary.shared().register(self)
     }
 
-    func requestImage(cell: UICollectionViewCell, indexPath: IndexPath) {
-        imageManager.requestImage(for: (allPhotos?[indexPath.row])!, targetSize: imageSize, contentMode: PHImageContentMode.aspectFill, options: nil) { (image, info) -> Void in
+    func requestImage(cell: CollectionViewCell, indexPath: IndexPath) {
+        imageManager.requestImage(for: (allPhotos?[indexPath.row])!, targetSize: imageSize, contentMode: .aspectFill, options: nil) { (image, info) -> Void in
             if (image != nil) {
-                (cell as! CollectionViewCell).imageView.image = image
+                cell.setImage(image!)
             }
         }
     }

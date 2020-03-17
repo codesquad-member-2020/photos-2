@@ -18,9 +18,7 @@ class PhotosCollectionDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
-        
-        photoLibraryManager.requestImage(cell: cell, indexPath: indexPath)
-        
+        photoLibraryManager.requestImage(cell: cell as! CollectionViewCell, indexPath: indexPath)
         return cell
     }
     
