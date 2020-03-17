@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import Photos
 
 class PhotosCollectionDataSource: NSObject, UICollectionViewDataSource {
     private let cellIdentifier = "collectionViewCell"
     private let photoLibraryManager = PhotoLibraryManager()
+
+    override init() {
+        super.init()
+        PHPhotoLibrary.shared().register(photoLibraryManager)
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoLibraryManager.allPhotos!.count

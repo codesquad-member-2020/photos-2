@@ -14,11 +14,6 @@ class PhotoLibraryManager: NSObject, PHPhotoLibraryChangeObserver {
     let imageManager = PHCachingImageManager()
     let imageSize = CGSize(width: 100, height: 100)
     
-    override init() {
-        super.init()
-        PHPhotoLibrary.shared().register(self)
-    }
-
     func requestImage(cell: CollectionViewCell, indexPath: IndexPath) {
         imageManager.requestImage(for: (allPhotos?[indexPath.row])!, targetSize: imageSize, contentMode: .aspectFill, options: nil) { (image, info) -> Void in
             if (image != nil) {
@@ -31,6 +26,6 @@ class PhotoLibraryManager: NSObject, PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         guard let changed = changeInstance.changeDetails(for: allPhotos!) else { return }
         allPhotos = changed.fetchResultAfterChanges
-        NotificationCenter.default.post(name: .assetCollectionChanged, object: nil)
+        NotificationCenter.default.post(name: .assetCollectionChanged, object: nil, userInfo: ["changed": changed])
     }
 }

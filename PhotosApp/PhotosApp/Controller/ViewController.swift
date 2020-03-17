@@ -35,13 +35,34 @@ class ViewController: UIViewController {
     
     @objc func reloadCollectionViewData(_ notification: Notification) {
         DispatchQueue.main.async {
-            self.collectionView.reloadData()
+            guard let collectionView = self.collectionView else { return }
+
+            if let changes = notification.userInfo?["changed"] as? PHFetchResultChangeDetails<PHAsset> {
+                if changes.hasIncrementalChanges {
+                    collectionView.performBatchUpdates({
+                        if let removed = changes.removedIndexes, removed.count > 0 {
+                            collectionView.deleteItems(at: removed.map { IndexPath(item: $0, section:0) })
+                        }
+                        if let inserted = changes.insertedIndexes, inserted.count > 0 {
+                            collectionView.insertItems(at: inserted.map { IndexPath(item: $0, section:0) })
+                        }
+                        if let changed = changes.changedIndexes, changed.count > 0 {
+                            collectionView.reloadItems(at: changed.map { IndexPath(item: $0, section:0) })
+                        }
+                        changes.enumerateMoves { fromIndex, toIndex in
+                            collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0),
+                                                    to: IndexPath(item: toIndex, section: 0))
+                        }
+                    })
+                } else {
+                    collectionView.reloadData()
+                }
+            }
         }
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self, name: .assetCollectionChanged, object: nil)
     }
-    
-}
 
+}
