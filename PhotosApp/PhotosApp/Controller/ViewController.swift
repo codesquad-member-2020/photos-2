@@ -14,7 +14,13 @@ class ViewController: UIViewController {
     // MARK: Properties
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    @IBAction func addButton(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let doodleController = storyboard.instantiateViewController(withIdentifier: "Doodle")
+        let navigationController = UINavigationController(rootViewController: doodleController)
+        present(navigationController, animated: true, completion: nil)
+    }
+
     let dataSource = PhotosCollectionDataSource()
     private var photoLibraryManager: PhotoLibraryManager?
     
