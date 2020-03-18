@@ -26,6 +26,11 @@ class ViewController: UIViewController {
         self.collectionView.dataSource = self.dataSource
         self.photoLibraryManager = PhotoLibraryManager()
         
+        let url = "https://public.codesquad.kr/jk/doodle.json"
+
+        let connect = ImageRequestManager()
+        let collection = connect.request(url: url, methodType: .get)
+        print(collection)
         setObserver()
     }
     
