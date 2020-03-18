@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		30E0FD6C241F6DAE0015ECE2 /* PhotosCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FD6B241F6DAE0015ECE2 /* PhotosCollectionDataSource.swift */; };
 		30F9F8852420E64800BAB8E7 /* ExtendedNotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F9F8842420E64800BAB8E7 /* ExtendedNotificationName.swift */; };
+		8D0D11812422156600EAEAC0 /* DoodleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D11802422156600EAEAC0 /* DoodleViewCell.swift */; };
 		8D3859E6241F42FD0025FF1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3859E5241F42FD0025FF1D /* AppDelegate.swift */; };
 		8D3859E8241F42FD0025FF1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3859E7241F42FD0025FF1D /* SceneDelegate.swift */; };
 		8D3859EA241F42FD0025FF1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3859E9241F42FD0025FF1D /* ViewController.swift */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		30E0FD6B241F6DAE0015ECE2 /* PhotosCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionDataSource.swift; sourceTree = "<group>"; };
 		30F9F8842420E64800BAB8E7 /* ExtendedNotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedNotificationName.swift; sourceTree = "<group>"; };
+		8D0D11802422156600EAEAC0 /* DoodleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewCell.swift; sourceTree = "<group>"; };
 		8D3859E2241F42FD0025FF1D /* PhotosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D3859E5241F42FD0025FF1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D3859E7241F42FD0025FF1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				8DD1268B241F4572004CA8E0 /* CollectionViewCell.swift */,
+				8D0D11802422156600EAEAC0 /* DoodleViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 			files = (
 				30F9F8852420E64800BAB8E7 /* ExtendedNotificationName.swift in Sources */,
 				8D3859EA241F42FD0025FF1D /* ViewController.swift in Sources */,
+				8D0D11812422156600EAEAC0 /* DoodleViewCell.swift in Sources */,
 				8D9F9CB82420B5DE00EE33B8 /* PhotoLibraryManager.swift in Sources */,
 				8D67BC002421EB4D00818263 /* DoodleViewController.swift in Sources */,
 				8D3859E6241F42FD0025FF1D /* AppDelegate.swift in Sources */,

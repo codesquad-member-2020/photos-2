@@ -24,6 +24,13 @@ class DoodleViewController: UICollectionViewController {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        self.collectionView.backgroundColor = .darkGray
+        self.navigationItem.title = "Doodle"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
+    }
+
+    @objc func close() {
+        self.dismiss(animated: true, completion: nil)
     }
 
     /*
