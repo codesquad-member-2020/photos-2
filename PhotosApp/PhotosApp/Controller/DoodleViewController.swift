@@ -8,91 +8,66 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "doodleViewCell"
 
-class DoodleViewController: UICollectionViewController, UICollectionViewDataSourcePrefetching {
-    
-    //    var imagesData: [ImageData] = []
+class DoodleViewController: UICollectionViewController {
+    let defaultImage = #imageLiteral(resourceName: "defualtImage")
+    var allImages: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView.backgroundColor = .darkGray
         self.navigationItem.title = "Doodles"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
-        requestImage()
+        
+        getAllImages()
     }
     
     @objc func close() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func requestImage() {
+    func requestImage(handler: @escaping (UIImage?) -> ()) {
         let url = "https://public.codesquad.kr/jk/doodle.json"
-        DispatchQueue.main.async {
-            let connect = ImageRequestManager()
-            let imageCollection = connect.request(url: url, methodType: .get) { image in
-                print(image)
-            }
+        let connect = ImageRequestManager()
+        connect.request(url: url, methodType: .get) { image in
+            handler(image)
         }
-        
     }
     
-    //    func setImage() {
-    //        requestImage().forEach { (imageData) in
-    //            print(imageData.image)
-    //        }
-    //    }
+    
+    func getAllImages(){
+        self.requestImage(handler: { (image) in
+            guard let img = image else { return }
+            self.allImages.append(img)
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        })
+    }
+    
+    func setImageToCell(cell: UICollectionViewCell, indexPath: IndexPath) {
+        
+        if self.allImages.count != 0, indexPath.item < self.allImages.count {
+            let image = self.allImages[indexPath.item]
+            (cell as! DoodleViewCell).setImage(image)
+        }
+    }
     
     // MARK: UICollectionViewDataSource
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 0
-    }
-    
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return self.allImages.count
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        //
-        //        let model = models[indexPath.row]
-        //        let id = model.id
-        //        cell.representedId = id
-        //
-        //        // Check if the `asyncFetcher` has already fetched data for the specified identifier.
-        //        if let fetchedData = asyncFetcher.fetchedData(for: id) {
-        //            // The data has already been fetched and cached; use it to configure the cell.
-        //            cell.configure(with: fetchedData)
-        //        } else {
-        //            // There is no data available; clear the cell until we've fetched data.
-        //            cell.configure(with: nil)
-        //
-        //            // Ask the `asyncFetcher` to fetch data for the specified identifier.
-        //            asyncFetcher.fetchAsync(id) { fetchedData in
-        //                DispatchQueue.main.async {
-        //                    /*
-        //                     The `asyncFetcher` has fetched data for the identifier. Before
-        //                     updating the cell, check if it has been recycled by the
-        //                     collection view to represent other data.
-        //                     */
-        //                    guard cell.representedId == id else { return }
-        //
-        //                    // Configure the cell with the fetched image.
-        //                    cell.configure(with: fetchedData)
-        //                }
-        //            }
-        //        }
-        
-        
+        DispatchQueue.main.async {
+            self.setImageToCell(cell: cell, indexPath: indexPath)
+        }
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        
     }
     
     

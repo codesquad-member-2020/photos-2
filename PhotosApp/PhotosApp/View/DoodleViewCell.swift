@@ -9,6 +9,10 @@
 import UIKit
 
 class DoodleViewCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    
+    @IBOutlet var imageView2: UIImageView!
+    func setImage(_ image: UIImage) {
+        DispatchQueue.main.async {
+                self.imageView2.image = image
+        }
+    }
 }

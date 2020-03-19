@@ -63,25 +63,4 @@ class ImageRequestManager {
         task.resume()
     }
     
-    func setImageData(_ anyData: Any) -> UIImage? {
-        var doodleImage = UIImage()
-        if let nsArray = anyData as? NSArray {
-            for bundle in nsArray {
-                if let nsDictionary = bundle as? NSDictionary {
-                    guard let imageString = nsDictionary["image"] as? String else {
-                        return nil }
-                    do {
-                        let imageURL = URL(string: imageString)!
-                        let data = try Data(contentsOf: imageURL)
-                        doodleImage = UIImage(data: data)!
-                        print(doodleImage)
-                    } catch {
-                        
-                    }
-                }
-            }
-        }
-        return doodleImage
-    }
-    
 }
