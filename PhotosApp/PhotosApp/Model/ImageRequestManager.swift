@@ -39,7 +39,22 @@ class ImageRequestManager {
             
             do {
                 let anyData = try JSONSerialization.jsonObject(with: data!, options: [])
-                handler(self.setImageData(anyData)!)
+                if let nsArray = anyData as? NSArray {
+                    for bundle in nsArray {
+                        if let nsDictionary = bundle as? NSDictionary {
+                            guard let imageString = nsDictionary["image"] as? String else {
+                                return }
+                            do {
+                                let imageURL = URL(string: imageString)!
+                                let data = try Data(contentsOf: imageURL)
+                                let doodleImage = UIImage(data: data)!
+                                handler(doodleImage)
+                            } catch {
+                                
+                            }
+                        }
+                    }
+                }
             } catch {
                 print(error.localizedDescription)
             }
@@ -53,21 +68,13 @@ class ImageRequestManager {
         if let nsArray = anyData as? NSArray {
             for bundle in nsArray {
                 if let nsDictionary = bundle as? NSDictionary {
-//                    guard let title = nsDictionary["title"] as? String,
-//                        let image = nsDictionary["image"] as? String,
-//                        let date = nsDictionary["date"] as? String else { return nil }
-//
-//                    let imageData = ImageData(title: title, image: image, date: date)
-//                    imageCollection.append(imageData)
                     guard let imageString = nsDictionary["image"] as? String else {
-                        print("nil")
                         return nil }
                     do {
-//                        print("not nil")
                         let imageURL = URL(string: imageString)!
                         let data = try Data(contentsOf: imageURL)
                         doodleImage = UIImage(data: data)!
-//                        print(doodleImage)
+                        print(doodleImage)
                     } catch {
                         
                     }
