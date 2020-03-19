@@ -10,89 +10,90 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class DoodleViewController: UICollectionViewController {
-
-//    var navigationController: UINavigationController!
-
+class DoodleViewController: UICollectionViewController, UICollectionViewDataSourcePrefetching {
+    
+//    var imagesData: [ImageData] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
         self.collectionView.backgroundColor = .darkGray
-        self.navigationItem.title = "Doodle"
+        self.navigationItem.title = "Doodles"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
+        requestImage()
     }
-
+    
     @objc func close() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func requestImage() {
+        let url = "https://public.codesquad.kr/jk/doodle.json"
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        let connect = ImageRequestManager()
+        let imageCollection = connect.request(url: url, methodType: .get) { image in
+//            imagesCollection = imageData
+            print(image)
+        }
     }
-    */
-
+    
+//    func setImage() {
+//        requestImage().forEach { (imageData) in
+//            print(imageData.image)
+//        }
+//    }
+    
     // MARK: UICollectionViewDataSource
-
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 0
     }
-
-
+    
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return 0
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-    
+//
+//        let model = models[indexPath.row]
+//        let id = model.id
+//        cell.representedId = id
+//
+//        // Check if the `asyncFetcher` has already fetched data for the specified identifier.
+//        if let fetchedData = asyncFetcher.fetchedData(for: id) {
+//            // The data has already been fetched and cached; use it to configure the cell.
+//            cell.configure(with: fetchedData)
+//        } else {
+//            // There is no data available; clear the cell until we've fetched data.
+//            cell.configure(with: nil)
+//
+//            // Ask the `asyncFetcher` to fetch data for the specified identifier.
+//            asyncFetcher.fetchAsync(id) { fetchedData in
+//                DispatchQueue.main.async {
+//                    /*
+//                     The `asyncFetcher` has fetched data for the identifier. Before
+//                     updating the cell, check if it has been recycled by the
+//                     collection view to represent other data.
+//                     */
+//                    guard cell.representedId == id else { return }
+//
+//                    // Configure the cell with the fetched image.
+//                    cell.configure(with: fetchedData)
+//                }
+//            }
+//        }
+
+        
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+       
     }
-    */
-
+    
+  
+    
 }

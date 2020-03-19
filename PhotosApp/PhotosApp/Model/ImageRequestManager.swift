@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 class ImageRequestManager {
     
     var imageCollection: [ImageData] = []
@@ -18,8 +20,8 @@ class ImageRequestManager {
         case delete = "DELETE"
     }
     
-    func request(url: String, methodType: HTTPMethod, body: Data? = nil) -> [ImageData]? {
-        guard let url = URL(string: url) else { return nil }
+    func request(url: String, methodType: HTTPMethod, body: Data? = nil, handler: @escaping (UIImage) -> ())  {
+        guard let url = URL(string: url) else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = methodType.rawValue
@@ -37,32 +39,42 @@ class ImageRequestManager {
             
             do {
                 let anyData = try JSONSerialization.jsonObject(with: data!, options: [])
-                self.setImageData(anyData)
+                handler(self.setImageData(anyData)!)
             } catch {
                 print(error.localizedDescription)
             }
         }
         
         task.resume()
-        
-        return self.imageCollection
     }
     
-    func setImageData(_ anyData: Any) {
-
+    func setImageData(_ anyData: Any) -> UIImage? {
+        var doodleImage = UIImage()
         if let nsArray = anyData as? NSArray {
             for bundle in nsArray {
                 if let nsDictionary = bundle as? NSDictionary {
-                    if let title = nsDictionary["title"] as? String,
-                        let image = nsDictionary["image"] as? String,
-                        let date = nsDictionary["date"] as? String {
-                        let imageData = ImageData(title: title, image: image, date: date)
-                        print(imageData)
-                        imageCollection.append(imageData)
+//                    guard let title = nsDictionary["title"] as? String,
+//                        let image = nsDictionary["image"] as? String,
+//                        let date = nsDictionary["date"] as? String else { return nil }
+//
+//                    let imageData = ImageData(title: title, image: image, date: date)
+//                    imageCollection.append(imageData)
+                    guard let imageString = nsDictionary["image"] as? String else {
+                        print("nil")
+                        return nil }
+                    do {
+//                        print("not nil")
+                        let imageURL = URL(string: imageString)!
+                        let data = try Data(contentsOf: imageURL)
+                        doodleImage = UIImage(data: data)!
+//                        print(doodleImage)
+                    } catch {
+                        
                     }
                 }
             }
         }
+        return doodleImage
     }
     
 }

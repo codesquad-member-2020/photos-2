@@ -14,13 +14,6 @@ class ViewController: UIViewController {
     // MARK: Properties
     
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBAction func addButton(_ sender: UIBarButtonItem) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let doodleController = storyboard.instantiateViewController(withIdentifier: "Doodle")
-        let navigationController = UINavigationController(rootViewController: doodleController)
-        present(navigationController, animated: true, completion: nil)
-    }
-
     let dataSource = PhotosCollectionDataSource()
     private var photoLibraryManager: PhotoLibraryManager?
     
@@ -32,17 +25,20 @@ class ViewController: UIViewController {
         self.collectionView.dataSource = self.dataSource
         self.photoLibraryManager = PhotoLibraryManager()
         
-        let url = "https://public.codesquad.kr/jk/doodle.json"
-
-        let connect = ImageRequestManager()
-        let collection = connect.request(url: url, methodType: .get)
-        print(collection)
         setObserver()
     }
     
     func setObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionViewData(_:)), name: .assetCollectionChanged, object: nil)
     }
+    
+    @IBAction func addButton(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let doodleController = storyboard.instantiateViewController(withIdentifier: "Doodle")
+        let navigationController = UINavigationController(rootViewController: doodleController)
+        present(navigationController, animated: true, completion: nil)
+    }
+
     
     @objc func reloadCollectionViewData(_ notification: Notification) {
         DispatchQueue.main.async {

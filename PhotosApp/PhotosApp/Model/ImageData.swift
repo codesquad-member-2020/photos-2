@@ -9,7 +9,7 @@
 import Foundation
 
 struct ImageData {
-    var title: String?
-    var image: String?
-    var date: String?
+    var title: String
+    var image: String
+    var date: String
 }
