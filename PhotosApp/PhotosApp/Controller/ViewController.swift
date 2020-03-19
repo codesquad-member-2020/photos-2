@@ -28,9 +28,9 @@ class ViewController: UIViewController
         
         setObserver()
 
-
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(gesture:)))
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleTapGesture(gesture:)))
         gestureRecognizer.delegate = self
+        gestureRecognizer.minimumPressDuration = 0.5
         collectionView.addGestureRecognizer(gestureRecognizer)
     }
 
