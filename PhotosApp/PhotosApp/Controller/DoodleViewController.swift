@@ -23,6 +23,7 @@ class DoodleViewController: UICollectionViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(close))
         
         getAllImages()
+        addGestureRecognizerOnImage()
     }
     
     @objc func close() {
@@ -59,7 +60,41 @@ class DoodleViewController: UICollectionViewController {
         self.inputImage(cell: cell, indexPath: indexPath)
         return cell
     }
-    
-    
-    
+
+    // MARK: GestureRecognizer
+
+    func addGestureRecognizerOnImage() {
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleGesture(gesture:)))
+        gestureRecognizer.delegate = self
+        print(gestureRecognizer.minimumPressDuration)
+        collectionView.addGestureRecognizer(gestureRecognizer)
+    }
+
+    @objc func handleGesture(gesture: UIGestureRecognizer) {
+        let point = gesture.location(in: collectionView)
+        guard let indexPath = collectionView?.indexPathForItem(at: point) else { return }
+
+        let cell = collectionView.cellForItem(at: indexPath) as! DoodleViewCell
+        let menuItem = UIMenuItem(title: "Save", action: #selector(saveImage))
+
+        UIMenuController.shared.menuItems = [menuItem]
+        UIMenuController.shared.showMenu(from: cell, rect: cell.contentView.frame)
+        cell.becomeFirstResponder()
+    }
+
+    @objc func saveImage() {
+        print("save image")
+    }
+
+}
+
+extension DoodleViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let point = touch.location(in: collectionView)
+        if let indexPath = collectionView.indexPathForItem(at: point), let _ = collectionView.cellForItem(at: indexPath) {
+            return true
+        }
+
+        return false
+    }
 }

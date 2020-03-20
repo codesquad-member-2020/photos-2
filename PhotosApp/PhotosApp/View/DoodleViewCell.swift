@@ -15,4 +15,8 @@ class DoodleViewCell: UICollectionViewCell {
                 self.doodleImageView.image = image
         }
     }
+
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
 }
