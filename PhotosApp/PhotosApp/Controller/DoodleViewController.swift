@@ -47,7 +47,7 @@ class DoodleViewController: UICollectionViewController {
         })
     }
     
-    func setImageToCell(cell: UICollectionViewCell, indexPath: IndexPath) {
+    private func inputImage(cell: UICollectionViewCell, indexPath: IndexPath) {
         
         if self.allImages.count != 0, indexPath.item < self.allImages.count {
             let image = self.allImages[indexPath.item]
@@ -65,7 +65,7 @@ class DoodleViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         DispatchQueue.main.async {
-            self.setImageToCell(cell: cell, indexPath: indexPath)
+            self.inputImage(cell: cell, indexPath: indexPath)
         }
         return cell
     }
