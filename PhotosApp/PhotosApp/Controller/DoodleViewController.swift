@@ -8,12 +8,12 @@
 
 import UIKit
 
-private let reuseIdentifier = "doodleViewCell"
 
 class DoodleViewController: UICollectionViewController {
     let defaultImage = #imageLiteral(resourceName: "defualtImage")
     var allImages: [UIImage] = []
-    
+    private let reuseIdentifier = "doodleViewCell"
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -9,10 +9,10 @@
 import UIKit
 
 class DoodleViewCell: UICollectionViewCell {
-    @IBOutlet var imageView2: UIImageView!
+    @IBOutlet var doodleImageView: UIImageView!
     func setImage(_ image: UIImage) {
         DispatchQueue.main.async {
-                self.imageView2.image = image
+                self.doodleImageView.image = image
         }
     }
 }
