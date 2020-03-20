@@ -9,8 +9,7 @@
 import UIKit
 import Photos
 
-class ViewController: UIViewController
-{
+class ViewController: UIViewController {
     
     // MARK: Properties
     
@@ -27,29 +26,8 @@ class ViewController: UIViewController
         self.photoLibraryManager = PhotoLibraryManager()
         
         setObserver()
-
-        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleTapGesture(gesture:)))
-        gestureRecognizer.delegate = self
-        gestureRecognizer.minimumPressDuration = 0.5
-        collectionView.addGestureRecognizer(gestureRecognizer)
     }
 
-    @objc func handleTapGesture(gesture: UIGestureRecognizer) {
-        let point = gesture.location(in: collectionView)
-        guard let indexPath = collectionView?.indexPathForItem(at: point) else { return }
-
-        let cell = collectionView.cellForItem(at: indexPath) as! CollectionViewCell
-        let menuItem = UIMenuItem(title: "Save", action: #selector(saveImage))
-
-        UIMenuController.shared.menuItems = [menuItem]
-        UIMenuController.shared.showMenu(from: cell, rect: cell.contentView.frame)
-        cell.becomeFirstResponder()
-    }
-
-    @objc func saveImage() {
-        print("save image")
-    }
-    
     func setObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionViewData(_:)), name: .assetCollectionChanged, object: nil)
     }
@@ -93,16 +71,5 @@ class ViewController: UIViewController
     deinit {
         NotificationCenter.default.removeObserver(self, name: .assetCollectionChanged, object: nil)
     }
-
 }
 
-extension ViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        let point = touch.location(in: collectionView)
-        if let indexPath = collectionView.indexPathForItem(at: point), let _ = collectionView.cellForItem(at: indexPath) {
-            return true
-        }
-
-        return false
-    }
-}

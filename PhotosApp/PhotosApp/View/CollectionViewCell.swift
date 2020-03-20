@@ -15,8 +15,4 @@ class CollectionViewCell: UICollectionViewCell {
     func setImage(_ image: UIImage) {
         imageView.image = image
     }
-
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
 }
