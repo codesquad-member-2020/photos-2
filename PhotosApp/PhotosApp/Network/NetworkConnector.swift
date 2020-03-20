@@ -32,31 +32,27 @@ class NetworkConnector {
         
         let task = session.dataTask(with: request) { (data, response, error) in
             
-            guard error == nil else {
-                print(error!.localizedDescription)
-                return
-            }
+            guard error == nil else { return }
             
             do {
                 let anyData = try JSONSerialization.jsonObject(with: data!, options: [])
                 if let nsArray = anyData as? NSArray {
                     for bundle in nsArray {
                         if let nsDictionary = bundle as? NSDictionary {
-                            guard let imageString = nsDictionary["image"] as? String else {
-                                return }
+                            guard let imageString = nsDictionary["image"] as? String else { return }
                             do {
                                 let imageURL = URL(string: imageString)!
                                 let data = try Data(contentsOf: imageURL)
                                 let doodleImage = UIImage(data: data)!
                                 handler(doodleImage)
                             } catch {
-                                
+                                ErrorHandler().showAlertImageDownFail()
                             }
                         }
                     }
                 }
             } catch {
-                print(error.localizedDescription)
+               ErrorHandler().showAlertImageDownFail()
             }
         }
         
