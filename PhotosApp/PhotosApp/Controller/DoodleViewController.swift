@@ -13,7 +13,8 @@ class DoodleViewController: UICollectionViewController {
     let defaultImage = #imageLiteral(resourceName: "defualtImage")
     var allImages: [UIImage] = []
     private let reuseIdentifier = "doodleViewCell"
-
+    let imageDownloader = ImageDownloader()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,17 +29,8 @@ class DoodleViewController: UICollectionViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func requestImage(handler: @escaping (UIImage?) -> ()) {
-        let url = "https://public.codesquad.kr/jk/doodle.json"
-        let connect = ImageRequestManager()
-        connect.request(url: url, methodType: .get) { image in
-            handler(image)
-        }
-    }
-    
-    
     func getAllImages(){
-        self.requestImage(handler: { (image) in
+        imageDownloader.requestImage(handler: { (image) in
             guard let img = image else { return }
             self.allImages.append(img)
             DispatchQueue.main.async {
@@ -64,9 +56,7 @@ class DoodleViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        DispatchQueue.main.async {
-            self.inputImage(cell: cell, indexPath: indexPath)
-        }
+        self.inputImage(cell: cell, indexPath: indexPath)
         return cell
     }
     

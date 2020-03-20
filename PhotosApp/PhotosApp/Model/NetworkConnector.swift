@@ -1,5 +1,5 @@
 //
-//  ImageRequestManager.swift
+//  NetworkConnector.swift
 //  PhotosApp
 //
 //  Created by delma on 2020/03/18.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ImageRequestManager {
+class NetworkConnector {
     
     var imageCollection: [ImageData] = []
     
