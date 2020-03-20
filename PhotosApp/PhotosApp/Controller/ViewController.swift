@@ -32,6 +32,7 @@ class ViewController: UIViewController
         gestureRecognizer.delegate = self
         gestureRecognizer.minimumPressDuration = 0.5
         collectionView.addGestureRecognizer(gestureRecognizer)
+        
     }
 
     @objc func handleTapGesture(gesture: UIGestureRecognizer) {
